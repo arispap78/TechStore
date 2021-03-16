@@ -11,7 +11,7 @@ public class MenuGui extends javax.swing.JFrame {
      */
     public MenuGui() {
         initComponents();
-        //εμφάνιση στο κέντρο της οθόνης
+        //dislpay on the center of the screen
         this.setLocationRelativeTo(null);
     }
 
@@ -171,11 +171,6 @@ public class MenuGui extends javax.swing.JFrame {
         jMenuStatistics.setText("STATISTICS");
         jMenuStatistics.setToolTipText("");
         jMenuStatistics.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
-        jMenuStatistics.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuStatisticsActionPerformed(evt);
-            }
-        });
 
         jMenuShowStatistics.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jMenuShowStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_Data-16_4203020.png"))); // NOI18N
@@ -251,67 +246,59 @@ public class MenuGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //εμφάνιση παραθύρων κάθε φορά που πατιέται το αντοίστοιχο κουμπί
+    //display the camera view
     private void jMenuCameraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCameraActionPerformed
         new CameraView().setVisible(true);
     }//GEN-LAST:event_jMenuCameraActionPerformed
-
-    private void jMenuStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuStatisticsActionPerformed
-         
-    }//GEN-LAST:event_jMenuStatisticsActionPerformed
-
+    //display the statistics
     private void jMenuShowStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuShowStatisticsActionPerformed
-        //αν είναι προϊστάμενος
+        //if the user is a product manager
         if(ipallilos.isIsProistamenos())
             new StatisticsShowView().setVisible(true);
         else
-            //μήνυμα στον χρήστη ότι δεν μπορεί να κάνει παραγγελία
             JOptionPane.showMessageDialog(null,"you don t have the autherization for this function");
     }//GEN-LAST:event_jMenuShowStatisticsActionPerformed
-
+    //display the order
     private void jMenuShowOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuShowOrderActionPerformed
-        //αν είναι προϊστάμενος
+        //if the user is a product manager
         if(ipallilos.isIsProistamenos())
             new OrderShowView().setVisible(true);
         else
-            //μήνυμα στον χρήστη ότι δεν μπορεί να κάνει παραγγελία
             JOptionPane.showMessageDialog(null,"you don t have the autherization for this function");
     }//GEN-LAST:event_jMenuShowOrderActionPerformed
-
+    //display update stock view
     private void jMenuAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddItemActionPerformed
         new UpdateStockView().setVisible(true);
     }//GEN-LAST:event_jMenuAddItemActionPerformed
-
+    //display television view
     private void jMenuTelevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTelevisionActionPerformed
         new TelevisionView().setVisible(true);
     }//GEN-LAST:event_jMenuTelevisionActionPerformed
-
+    //display mobile view
     private void jMenuMobileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuMobileActionPerformed
         new MobileView().setVisible(true);
     }//GEN-LAST:event_jMenuMobileActionPerformed
-
+    //display laptop view
     private void jMenuLaptopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLaptopActionPerformed
         new LaptopView().setVisible(true);
     }//GEN-LAST:event_jMenuLaptopActionPerformed
-
+    //display the make of order view
     private void jMenuCreateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCreateOrderActionPerformed
-        //αν είναι προϊστάμενος
+        //if the user is a product manager
         if(ipallilos.isIsProistamenos())
             new OrderCreateView().setVisible(true);
         else
-            //μήνυμα στον χρήστη ότι δεν μπορεί να κάνει παραγγελία
             JOptionPane.showMessageDialog(null,"you don t have the autherization for this function");
     }//GEN-LAST:event_jMenuCreateOrderActionPerformed
-
+    //display the make of sale view
     private void jMenuCreateSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCreateSaleActionPerformed
-        //αν είναι υπάλληλος
+        //if the user is an employee
         if(!ipallilos.isIsProistamenos())
             new SaleCreateView().setVisible(true);
         else
-            //μήνυμα στον χρήστη ότι δεν μπορεί να κάνει πώληση
             JOptionPane.showMessageDialog(null,"only an employee can create a sale");
     }//GEN-LAST:event_jMenuCreateSaleActionPerformed
-
+    //display the sale
     private void jMenuShowSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuShowSaleActionPerformed
         new SaleShowView().setVisible(true);
     }//GEN-LAST:event_jMenuShowSaleActionPerformed

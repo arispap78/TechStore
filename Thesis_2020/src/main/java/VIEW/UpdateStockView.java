@@ -115,7 +115,7 @@ public class UpdateStockView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //display the window of the user's choice 
+    //display the windows of the user's choice 
     private void jButtonAddTelevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTelevisionActionPerformed
         new AddTelevisionView().setVisible(true);
     }//GEN-LAST:event_jButtonAddTelevisionActionPerformed

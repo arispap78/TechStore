@@ -10,12 +10,12 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        //εμφάνιση στο κέντρο της οθόνης
+        //display on the center of the screen
         this.setLocationRelativeTo(null);
     }
     
     LoginCon loginCon=new LoginCon();
-    //αποθήκευση του υπαλλήλου που συνδέθηκε
+    //the connected user
     static User ipallilos;
 
     /**
@@ -41,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         setTitle("LOGIN FORM");
         setAutoRequestFocus(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 128, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 48)); // NOI18N
         jLabel2.setText("USERNAME:");
@@ -164,20 +164,19 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //login button
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        //αποθήκευση των καταχωρήσεων του χρήστη στα αντίστοιχα πεδία
+        //the attributes of the user
         String username=jTextUsername.getText();
         char[] password1=jPasswordField1.getPassword();
         String password2=String.valueOf(password1);
-         //έλεγχος αν όλα τα πεδία είναι συμπληρωμένα
+         //check if the fields are filled
         boolean emptyError = loginCon.nullMessageLog(username, password2);
         if(emptyError)
-            //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει όλα τα πεδία
             JOptionPane.showMessageDialog(null,"please fill in all the required fields");
         else
         {
-            //έλεγχος αν υπάρχει ο χρήστης στην βάση δεδομένων
+            //if there is the user in the database
             if(loginCon.loginControlEmp(username, password2)!=null)
             {
                 Login.ipallilos = loginCon.loginControlEmp(username, password2);
@@ -190,9 +189,9 @@ public class Login extends javax.swing.JFrame {
                 new MenuGui().setVisible(true); 
                 this.dispose();
             }
+            //if there is no user with these attributes
             else
             {
-                //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει σωστά τα πεδία
                 JOptionPane.showMessageDialog(null,"The username or the password are wrong.Please try again!");
                 jButtonClearActionPerformed(evt);
             }
@@ -201,11 +200,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        //σβήνει όλα τα πεδία έτσι ώστε να είναι ετοιμα για καταχώρηση
+        //reset the fields
         jTextUsername.setText(null);
         jPasswordField1.setText(null);
     }//GEN-LAST:event_jButtonClearActionPerformed
-
+    //registration button
     private void jButtonSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSignUpActionPerformed
         new Register().setVisible(true);
     }//GEN-LAST:event_jButtonSignUpActionPerformed

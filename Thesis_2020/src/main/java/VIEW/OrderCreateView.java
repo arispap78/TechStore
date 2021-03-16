@@ -1,4 +1,3 @@
-
 package VIEW;
 
 import MODEL.Order;
@@ -19,41 +18,41 @@ public class OrderCreateView extends javax.swing.JFrame {
      */
     public OrderCreateView() {
         initComponents();
-        //εμφάνιση στο κέντρο της οθόνης
+        //display on the center of the screen
         this.setLocationRelativeTo(null);
     }
 
-    //αντικείμενο CONTROLLER που θα χρησιμοποιηθεί
+    //instance of CONTROLLER for its methods
     OrderCon ordercon=new OrderCon();
-    //η επιλογή του πίνακα
+    //the choice of the category
     String jboxproduct;
-    //η επιλογή του μοντέλου από το combobox
+    //the choice of the model
     String jboxmodel;
-    //η επιλογή του μοντέλου από το textfield
+    //the model as an input in textfield
     String jTextModel;
-    //η επιλογή της μάρκας από το textfield
+    //the brand of the model in textfield
     String jTextBrand;
-    //η τελική επιλογή του μοντέλου 
+    //the final choice of the model 
     String jmodel;
-    //η επλογή από τη λίστα μοντέλων
+    //the choice from the list of the models
     String jboxmodelChoice;
-    //η μάρκα του επιλεγμένου μοντέλου
+    //the brand of the selected model
     String marka;
-    //η ποσότητα του κάθε προιόντος που γίνεται παραγγελία
+    //the quantity of the selected model
     String quantity;
-    //η καταχ'ωρηση ενός προϊόντος
+    //the saved order
     String paraggelia;
-    //Η λίστα με τα ονόματα των μοντέλων σε μια παραγγελία
+    //the list of the models in the order
     private ArrayList<OrderString> OrderModelList=new ArrayList<>();
-    //η λίστα με τα μοντέλα σε μορφή string
+    //the list of the models in the order as strings
     private ArrayList<String> OrderList=new ArrayList<>();
-    //η λίστα του jTable
+    //the list of the jTable
     DefaultTableModel lista;
-    //λίστα με τα διεγραμμένα προίόντα με το όνομα του μοντέλου μόνο
+    //list of the deleted products with only the name of the model
     private ArrayList<String> deletedList=new ArrayList<>();
-    //η τελικη λίστα με τα διεγραμμένα μοντέλα σε μορφή string
+    //list of the deleted products in strings
     private ArrayList<String> finaDeletedlList=new ArrayList<>();
-    //μεταβλητή για την επαλήθευση της αποθήκευσης προϊόντος μιας παραγγελίας
+    //confirmation of the save of the order in the database
     boolean saved=false;
     
     /**
@@ -248,9 +247,9 @@ public class OrderCreateView extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 0));
-        jLabel1.setText("Create an order...");
+        jLabel1.setText("                Μake Αn Οrder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -269,72 +268,71 @@ public class OrderCreateView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //the choice of the model
     private void jComboBoxModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModelActionPerformed
-        //μόνο εάν έχει αντικείμενα η λίστα του jComboBox με τα μοντέλα
+        //if there are models in the list of jComboBox 
         if(jComboBoxModel.getItemCount()>0)
         {
-            //αποθήκευση της επολογής του χρήστη
+            //the choice of the user
             jboxmodelChoice=jComboBoxModel.getSelectedItem().toString();
+            //if the user hasn t choose any model
             if(jboxmodelChoice=="MODELS...")
             {
-                //μήνυμα στον χρήστη να διαλέξει ένα μοντέλο
                 JOptionPane.showMessageDialog(null,"Please choose a model");
                 jboxmodelChoice=null;
             }
             else
             {
-                //διαχωρισμός του String έτσι ώστε να αποθηκευτoύν ξεχωριστά το όνομα του μοντέλου και η μάρκα
+                //separate the string,first argument the brand and second the model
                 String[] s=jboxmodelChoice.split(":");
                 marka=s[0];
                 jboxmodel=s[1];
             }
         }
     }//GEN-LAST:event_jComboBoxModelActionPerformed
-
+    //delete a product from the order
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        //αφαίρεση προϊόντος από τη λίστα πώλησης
+        //the number of the selected row
         int row=jTableOrder.getSelectedRow();
-        //προσθήκη στη λίστα με τα διεγραμμένα προϊόντα του ονόματος του μοντέλου που διαγράφηκε
+        //add the deleted product on the list of the deleted products
         String deletedModel=String.valueOf(jTableOrder.getValueAt(row, 2));
         deletedList.add(deletedModel);
-        //σβήσιμο γραμμής
+        //delete the row
         lista.removeRow(row);
     }//GEN-LAST:event_jButtonDeleteActionPerformed
-
+    //add a product in the list of the order
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        //η λίστα με τα προϊόντα της παραγγελίας
+        //list of the products of the order
         lista=(DefaultTableModel)jTableOrder.getModel();
-        //αν δεν έγινε επιλογή από το jComboBox
+        //if there is not a choice of the jComboBox
         if(jboxmodel==null)
         {
-            //αποθήκευση των επιλογών του χρήστη
+            //the inputs of the user
             jTextBrand=jTextWriteBrand.getText();
             jTextModel=jTextWriteModel.getText();
             quantity=jTextItems.getText();
-            //αν παρέληψε ο χρήστης να συμπληρώσει ένα πεδίο
+            //if there are not all the fields filled
             if(jTextBrand.isEmpty()||jTextModel.isEmpty())
-                //μήνυμα στον χρήστη ότι δεν πρέπει να συμπληρώσει και τα δύο πεδία
                 JOptionPane.showMessageDialog(null,"please fill in the fields or select model from combobox,not both of them!");
             else
             {
                 jmodel=jTextModel;
                 marka=jTextBrand;
-                //αν έχουν συμπληρωθεί όλα τα υπόλοιπα πεδία
+                //if there is selected category and quantity is filled
                 if((jboxproduct!=null)&&(!quantity.isEmpty()))
                 {
-                    //προσθήκη γραμμής στο jTable
+                    //add a row in the jTable
                     lista.addRow(new String[]{jboxproduct,marka,jmodel,quantity});
-                    //προσθήκη του ονόματος του μοντέλλου και της ποσότητας στη λίστα της παραγγελίας
+                    //make a string with the category the model the quantity and the brand
                     paraggelia=quantity+" item(s) of "+jboxproduct+", "+marka+" "+jmodel;
-                    //η λίστα με τα ονόματα των προϊόντων
+                    //the list of the products
                     OrderList.add(paraggelia);
                 }
+                //if there is not selected category or quantity
                 else
-                    //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει όλα τα πεδία
                     JOptionPane.showMessageDialog(null,"please fill in all the fields and select model!");
             }
-            //αρχικοποίηση των πεδίων για την επόμενη εγγραφή
+            //initialization of the fields for the next input
             jTextBrand=null;
             jTextWriteBrand.setText(null);
             jTextModel=null;
@@ -343,36 +341,36 @@ public class OrderCreateView extends javax.swing.JFrame {
             jTextItems.setText(null);
             quantity=null;
         }
-        //αν έγινε επιλογή από το jComboBox
+        //if there is a choice from the jComboBox
         if((jboxmodel!=null))
         {
-            //αποθήκευση των επιλογών του χρήστη
+            //the choices of the user
             jTextBrand=jTextWriteBrand.getText();
             jTextModel=jTextWriteModel.getText();
             quantity=jTextItems.getText();
-            //αν ο χρήστης επέλεξε μοντέλο από το combobox
+            //if the user has chosen a model from the combobox
             if(jTextBrand.isEmpty()&&jTextModel.isEmpty())            
             {
                 jmodel=jboxmodel;
                 
-                //αν έχουν συμπληρωθεί όλα τα υπόλοιπα πεδία
+                //if all the fields are filled
                 if((jboxproduct!=null)&&(!quantity.isEmpty()))
                 {
-                    //[ρπσθήκη γραμμής στο jTable
+                    //add a rwo in the jTable
                     lista.addRow(new String[]{jboxproduct,marka,jboxmodel,quantity});
-                    //προσθήκη του ονόματος του μοντέλλου και της ποσότητας στη λίστα της παραγγελίας
+                    //make a string with the category the model the quantity and the brand
                     paraggelia=quantity+" item(s) of "+jboxproduct+", "+marka+" "+jmodel;
-                    //η λίστα με τα ονόματα των προϊόντων
+                    //the list of the products
                     OrderList.add(paraggelia);
                 }
+                //if there is not selected category or quantity
                 else
-                //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει όλα τα πεδία
                 JOptionPane.showMessageDialog(null,"please fill in all the fields and select model!");
             }
+            //if there is not selected category or quantity
             else
-                //μήνυμα στον χρήστη ότι δεν πρέπει να συμπληρώσει τα δύο πεδία
                 JOptionPane.showMessageDialog(null,"please don't fill in the fields if you have select model from combobox!");
-            //αρχικοποίηση των πεδίων για την επόμενη εγγραφή
+            //initialization of the fields for the next input
             jTextBrand=null;
             jTextModel=null;
             jmodel=null;
@@ -383,42 +381,43 @@ public class OrderCreateView extends javax.swing.JFrame {
             quantity=null;
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
-
+    //the choice of the category from jComboBoxProduct
     private void jComboBoxProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProductActionPerformed
-        //αποθήκευση της επολογής του χρήστη
+        //the choice from the jComboBoxProduct
         String chooseItem=jComboBoxProduct.getSelectedItem().toString();
+        //if there is not a choice of category
         if(chooseItem=="CATEGORY...")
         {
-            //μήνυμα στον χρήστη να διαλέξει ένα μοντέλο
             JOptionPane.showMessageDialog(null,"Please choose a category");
             chooseItem=null;
         }
+        //if there is a selected category
         else
         {
-        //εύρεση του αντίστοιχου πίνακα της επιλογής του χρήστη
+        //find the corresponding table in the database
         jboxproduct= ordercon.getTheTableOrder(chooseItem);
-        //καταχώρηση της λίστας του πίνακα που ζητήθηκε
+        //the list of the models of the category
         List<String> models = ordercon.getListaOrderCon(jboxproduct);
+        //if there are no list of models
         if(models.isEmpty())
-            //μήνυμα στον χρήστη ότι δεν έχει βρεθεί η λίστα με μοντέλα
             JOptionPane.showMessageDialog(null,"No list of models have found!Please try again! ");
-        //το πρώτο στοιχείο της λίστας
+        //the first element of the list
         models.add(0, "MODELS...");
-        //διαγραφή της λίστας από προηγούμενη επιλογή
+        //delete of the list from a previous choice
         if(jComboBoxModel.getItemCount()>0)
             jComboBoxModel.removeAllItems();
-        //δημιουργία λίστας με τα μοντέλα της νέας επιλογής
+        //create a list for the jComboBoxModel
         for(String a:models)
         {
             jComboBoxModel.addItem(a);
         }
-        //αρχικοποίηση της μεταβλητής που αποθηκεύει την επιλογή από το jComboBox
+        //reset the variable of the jComboBox
         jboxmodel=null;
         }
     }//GEN-LAST:event_jComboBoxProductActionPerformed
 
     private void jTextItemsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextItemsKeyTyped
-        //έλεγχος εισόδου από το πληκτρολόγιο να είναι μόνο νούμερα
+        //check if the input of the user is a digit
         char typeKey=evt.getKeyChar();
         if(!((Character.isDigit(typeKey)||(typeKey=='\b'))))
         {
@@ -426,23 +425,22 @@ public class OrderCreateView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextItemsKeyTyped
-
+    //save the order in the database
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        //μεταβλητή που θα χρησιμοποιηθεί για την συμπλήρωση της λίστας OrderString
+        //the OrderString which is each product of the order
         OrderString orderstring=new OrderString();
         DefaultTableModel tableRow=(DefaultTableModel)jTableOrder.getModel();
+        //if the user hasn t fill in all the fields
         if(jTableOrder.getRowCount()==0)
-            //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει όλα τα πεδία
             JOptionPane.showMessageDialog(null,"please fill in your id and add items in the list");
         else
         {
-            /*η παραγγελία που θα πραγματοποιηθεί με ορίσματα τον προϊστάμενο
-            που καταχωρεί την παραγγελία και τη λίστα με τα προϊόντα*/
+            //the order with arguments the user which make it and the list of the products
             Order orderCreated=new Order((ProductManager) ipallilos,OrderModelList);
-            //ενημέρωση της λίστας  με τα διεγραμμένα προϊόντα
+            //update the list of the deleted productsενημέρωση της λίστας  με τα διεγραμμένα προϊόντα
             for(String d:OrderList)
             {
-                //αν είναι διεγραμμένο προίόν
+                //if the product is deleted
                 for(String f:deletedList)
                 {
                     if(d.endsWith(f))
@@ -451,22 +449,22 @@ public class OrderCreateView extends javax.swing.JFrame {
             }
             for(String d:OrderList)
             {
-                //αν δεν είναι διεγραμμένο προϊόν
+                //if the product is not deleted
                 if(!finaDeletedlList.contains(d))
                 {
-                    //προσθήκη στην τελική λίστα με τα προϊόντα της παραγγελίας
+                    //add in the final list of products of the order
                     OrderString orderstring1=new OrderString();
                     orderstring1.setProin(d);                   
                     OrderModelList.add(orderstring1);
                 }
             }         
-            //προσθήκη της παραγγελίας σε κάθε OrderString
+            //add the order in each product for the connection in the database of OrderString
             for(OrderString a:OrderModelList)
             {
                 a.setOrderProin(orderCreated);
             }
                 
-            //αποθήκευση στη βάση της παραγγελίας και των OrderString με τα αντίστοιχ αμηνύματα ενημέρωσης στον χρήστη
+            //save the order and the OrderStrings(products of the order) in the database
             if(ordercon.saveOrder(orderCreated))
             {
                 JOptionPane.showMessageDialog(null,"The order has been saved in the database!");                
@@ -474,15 +472,16 @@ public class OrderCreateView extends javax.swing.JFrame {
                     saved=a.saveOrdString();
                     if(!saved)
                         JOptionPane.showMessageDialog(null,"The database hasn't been updated!");     
-            }               
+            } 
+            //if the update of the database has failed
             else
                 JOptionPane.showMessageDialog(null,"The order hasn t been saved.Please try again!");
-            //αρχικοποίηση μεταβλητών
+            //reset the variables of the fields
             jTextItems.setText(null);
             jboxmodelChoice=null;
             for(int i=0;i<jTableOrder.getRowCount();i++)
                 lista.removeRow(i);
-            //διαγραφή της λίστας από προηγούμενη επιλογή
+            //delete the list from the previous choice
             if(jComboBoxModel.getItemCount()>0)
                 jComboBoxModel.removeAllItems();
         }

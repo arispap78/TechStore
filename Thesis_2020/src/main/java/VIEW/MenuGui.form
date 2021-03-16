@@ -145,9 +145,6 @@
               <Font name="Rockwell" size="24" style="1"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuStatisticsActionPerformed"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuShowStatistics">
               <Properties>

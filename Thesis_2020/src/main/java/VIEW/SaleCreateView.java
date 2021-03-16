@@ -587,7 +587,7 @@ public class SaleCreateView extends javax.swing.JFrame {
         //reset all the fields
         jButtonResetActionPerformed(evt);
     }//GEN-LAST:event_jButtonSaveActionPerformed
- //the choice of the category
+    //the choice of the category
     private void jComboBoxProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProductActionPerformed
         //the choice of the user 
         String chooseItem=jComboBoxProduct.getSelectedItem().toString();

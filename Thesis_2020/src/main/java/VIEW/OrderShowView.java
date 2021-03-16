@@ -14,22 +14,22 @@ public class OrderShowView extends javax.swing.JFrame {
      */
     public OrderShowView() {
         initComponents();
-        //εμφάνιση στο κέντρο της οθόνης
+        //display on the center of the screen
         this.setLocationRelativeTo(null);
     }
 
-    //μεταβλητές για την αποθήκευση της ημερομηνίας
+    //the date of the order
     private String year;
     private String day;
     private String month;
     private String date;
-    //αντικείμενο CONTROLLER που θα χρησιμοποιηθεί
+    //instance of CONTROLLER for its methods
     OrderCon ordercon=new OrderCon();
-    //μεταβλητές για την εμφάνιση του ονόματος του προϊσταμένου
-    //αρχικές τιμές που θα εμφανίζονται στην οθόνη πριν την αναζήτηση της παραγγελίας
+    /*the attributes of the product manager
+    the first values which will appear on the screen before the search*/
     String epitheto="NOT FOUND";
     String onoma="YET";
-    //μεταβλητή για την εμφάνιση της λίστας στην οθόνη
+    //the product of the order
     String proion;
     
     /**
@@ -58,7 +58,7 @@ public class OrderShowView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SHOW ORDER");
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
         jLabel2.setText("DATE:");
@@ -121,9 +121,9 @@ public class OrderShowView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
         jLabel7.setText("Product Manager");
 
-        jLabel1.setBackground(new java.awt.Color(255, 102, 102));
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 36)); // NOI18N
-        jLabel1.setText("Search an Order...");
+        jLabel1.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("               Search An Order");
 
         jButtonSearchOrder.setBackground(new java.awt.Color(255, 0, 153));
         jButtonSearchOrder.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
@@ -217,7 +217,7 @@ public class OrderShowView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextDayKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDayKeyTyped
-        //έλεγχος εισόδου από το πληκτρολόγιο να είναι μόνο νούμερα
+        //check if the input of the user is a digit
         char typeKey=evt.getKeyChar();
         if(!((Character.isDigit(typeKey)||(typeKey=='\b'))))
         {
@@ -227,7 +227,7 @@ public class OrderShowView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextDayKeyTyped
 
     private void jTextYearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextYearKeyTyped
-        //έλεγχος εισόδου από το πληκτρολόγιο να είναι μόνο νούμερα
+        //check if the input of the user is a digit
         char typeKey=evt.getKeyChar();
         if(!((Character.isDigit(typeKey)||(typeKey=='\b'))))
         {
@@ -237,7 +237,7 @@ public class OrderShowView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextYearKeyTyped
 
     private void jTextMonthKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextMonthKeyTyped
-        //έλεγχος εισόδου από το πληκτρολόγιο να είναι μόνο νούμερα
+        //check if the input of the user is a digit
         char typeKey=evt.getKeyChar();
         if(!((Character.isDigit(typeKey)||(typeKey=='\b'))))
         {
@@ -247,45 +247,47 @@ public class OrderShowView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextMonthKeyTyped
 
     private void jButtonSearchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderActionPerformed
-        //αποθήκευση των καταχωρήσεων του χρήστη
+        //the inputs of the user
         day=jTextDay.getText();
         month=jTextMonth.getText();
         year=jTextYear.getText();
-        //έλεγχος χρονολογίας
+        //check the year
         if(year.length()!=4)
             JOptionPane.showMessageDialog(this, "please insert four digits for the year"); 
-        //έλεγχος ημέρας του μήνα
+        //check the day
         else if(Integer.parseInt(day)>31)
             JOptionPane.showMessageDialog(this, "there is not such a day in a month.Please try again!");
-        //έλεγχος μήνα του έτους
+        //check the month
         else if(Integer.parseInt(month)>12)
             JOptionPane.showMessageDialog(this, "there is not such a month in a year.Please try again!");
         else
-            //αποθήκευση της ημερομηνίας 
+            //save the date as a string
             date=day+"/"+month+"/"+year;       
-        //αναζήτηση και αποθήκευση της παραγγελίας της συγκεκριμένης ημερομηνίας
+        //find the order on that date
         Order orderShow=ordercon.findOrd(date);
+        //if there is not an order on that date
         if(orderShow==null)
         {
             JOptionPane.showMessageDialog(this, "there is not a order in that date.Please try again!");
-            //αρχικοποίηση των πεδίων
+            //reset the fields
             jTextDay.setText(null);
             jTextMonth.setText(null);
             jTextYear.setText(null);
         }
+        //if there is an order
         else
         {
-            //το ονοματεπώνυμο του προϊσταμένου που έχει καταχωρήσει την παραγγελία 
+            //the name and the surname of the product manager who did the order
             epitheto=orderShow.getUser().getSurname();
             onoma=orderShow.getUser().getName();
-            //εμφάνιση στην οθόνη
+            //display on the screen
             jLabelProductmanager.setText(epitheto+" "+onoma);
-            //εμφάνιση της λίστας με τις καταχωρήσεις των προϊόντων στην οθόνη
+            //the list with the products of the order
             DefaultTableModel addRow=(DefaultTableModel)jTableOrderShow.getModel();
             for(OrderString a:orderShow.getOrderList())
             {
                 proion=a.getProin();
-                //προσθήκη γραμμής στο jTable
+                //add a row in the jTable
                 addRow.addRow(new String[]{proion});
             }
         }       

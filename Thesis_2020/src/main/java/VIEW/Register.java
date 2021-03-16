@@ -1,4 +1,3 @@
-
 package VIEW;
 
 import CONTROLLER.LoginCon;
@@ -10,13 +9,13 @@ public class Register extends javax.swing.JFrame {
     public Register() 
     {
         initComponents();
-        //εμφάνιση στο κέντρο της οθόνης
+        //display on the center of the screen
         this.setLocationRelativeTo(null);
     }
     
-    //αντικείμενο Controller για την κλήση μεθόδων
+    //instance of Controller for its methods
     LoginCon registerCon=new LoginCon();
-    //ο αριθμός μητρώου του υπαλλήλου
+    //the registration number of the user
     int rn;
     
     /**
@@ -340,7 +339,7 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonClear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClear1ActionPerformed
-        //σβήνει όλα τα πεδία έτσι ώστε να είναι ετοιμα για καταχώρηση
+        //reset all the fields
         jTextName1.setText(null);
         jTextSurname.setText(null);
         jTextUsernameR.setText(null);
@@ -352,7 +351,7 @@ public class Register extends javax.swing.JFrame {
     private void jButtonSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSignupActionPerformed
         try
         {
-            //αποθήκευση των καταχωρήσεων του χρήστη στα αντίστοιχα πεδία
+            //the inputs of the user
             String nameR= jTextName1.getText();
             String surnameR= jTextSurname.getText();
             String usernameR= jTextUsernameR.getText();
@@ -362,14 +361,13 @@ public class Register extends javax.swing.JFrame {
             String phoneR=jTextPhone.getText();
             String keyR=jTextProductKey.getText();
             System.out.println(keyR);
-            //έλεγχος αν όλα τα πεδία είναι συμπληρωμένα
+            //check if all the fields are filled
             boolean emptyError = registerCon.nullMessageReg(nameR, surnameR, usernameR, passwordR2, phoneR, emailR);
             if(emptyError)
-                //μήνυμα στον χρήστη ότι δεν έχει συμπληρώσει όλα τα πεδία
                 JOptionPane.showMessageDialog(null,"please fill in all the required fields");
             else
             {
-                //καταχώρηση του χρήστη ως εξουσιοδοτημένος
+                //register the user
                 if(registerCon.registration(nameR, surnameR, usernameR, passwordR2, phoneR, emailR,keyR))
                 {
                     if(keyR.isEmpty())
@@ -382,19 +380,17 @@ public class Register extends javax.swing.JFrame {
                         User ipallilos=registerCon.loginControlPro(usernameR, passwordR2);
                         rn=ipallilos.getRegistryNumber();
                     }
-                        
-                    //μήνυμα ολοκλήρωσης της καταχώρησης
                     JOptionPane.showMessageDialog(null,"The registration has been completed");
                     JOptionPane.showMessageDialog(null,"Your registration number is "+rn);
-                    //καθαρισμός των πεδίων στην οθόνη καταχώρησης
+                    //reset all the fields
                     this.jButtonClear1ActionPerformed(evt);
-                    //εμφάνιση της οθόνης σύνδεσης χρήστη(για να συνδεθεί εφόσον καταχωρήθηκαν τα στοιχεία του)
+                    //display the login view for connection
                     new Login().setVisible(true);
-                    //κλείσιμο του παραθύρου καταχώρησης χρήστη
+                    //close the window of registration
                     this.dispose();
                 }
+                //if the registration failed
                 else
-                    //μήνυμα μη ολοκλήρωσης της καταχώρησης
                     JOptionPane.showMessageDialog(null,"The registration has not been completed.Please try again!");
             }
         }
@@ -404,7 +400,7 @@ public class Register extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButtonSignupActionPerformed
-    //έλεγχος εισόδου από το πληκτρολόγιο να είναι μόνο νούμερα
+    //check if the input of the user is a digit
     private void jTextPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPhoneKeyTyped
         char phonekey=evt.getKeyChar();
         if(!((Character.isDigit(phonekey)||(phonekey=='\b'))))
