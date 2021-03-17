@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 
 public class AddProductConTest 
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static AddProductCon addproductcon;
     private static AddProductConTest testTelevision;
     
-    //για να διαγραφεί η τηλεόραση που αποθηκεύτηκε στην βάση με το test
+    //delete a record from table television in the database
     public void deleteTelevision(String a)
     {
         int result=0;
@@ -41,22 +41,25 @@ public class AddProductConTest
     
     public AddProductConTest(){
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass() 
     {
-        //δημιουργία αντικειμένων για την κλήση μεθόδων
+        //instances for their methods
         addproductcon=new AddProductCon() ;
         testTelevision=new AddProductConTest();
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων
+    
+    //after the call of the test methods
     @AfterClass
     public static void tearDownClass() 
     {
-        //διαγραφή αντικειμένου τηλεόρασης που αποθηκεύτηκε κατά την διάρκεια των test
+        //delete the model of television after the test
         testTelevision.deleteTelevision("ER90RE");
     }
-    //επαλήθευση ότι οι μεταβλητές String δεν είναι κενές κατά την αποθήκευση ενός μοντέλου τηλεόρασης
+    
+    //test if the values are not null
     @Test
     public void testNullMessageTel()
     {
@@ -73,7 +76,7 @@ public class AddProductConTest
         boolean result = addproductcon.nullMessageTel(model, brand, sharpness, price, screen, frequency, smart, year, quantity);
         assertFalse(result);
     }
-    //επαλήθευση  αποθήκευσης ενός μοντέλου τηλεόρασης
+    //test the save of a television model with random values
     @Test
     public void testAddTelevisionCon() 
     {
@@ -90,7 +93,7 @@ public class AddProductConTest
         boolean result = addproductcon.addTelevisionCon(model, brand, sharpness, price, screen, frequency, smart, year, quantity);
         assertTrue( result);
     }
-    //επαλήθευση αφαίρεσης τεμαχίων συγκεκριμένου μοντέλου
+    //tset the deletion of a model in the database
     @Test
     public void testUpdateTelevisionCon() 
     {
@@ -100,7 +103,7 @@ public class AddProductConTest
         boolean result = addproductcon.updateTelevisionCon(model, quantity);
         assertTrue(result);
     }
-    //επαλήθευση προσθήκης τεμαχίων συγκεκριμένου μοντέλου
+    //test the addition of a model in the database
     @Test
     public void testUpdateAddTelevisionCon() 
     {

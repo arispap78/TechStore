@@ -13,16 +13,16 @@ import static org.junit.Assert.*;
 
 public class LoginConTest 
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static LoginCon logincon;
     private static LoginConTest logincontest;
-    //αρχικοποίηση μεταβλητής που περιέχει το κλειδί του προϊσταμένου
+    //initialization of the variable that includes the key of the product manager
     private static String inputR="";
     
     public LoginConTest() {
     }
     
-    //για να διαγραφεί ο υπάλληλος που αποθηκεύτηκε στην βάση με το test
+    //delete the employee from the database
     public void deleteEmployee(String a)
     {
         int result=0;
@@ -46,7 +46,7 @@ public class LoginConTest
         session.close();
     }
     
-    //για να διαγραφεί ο προϊστάμενος που αποθηκεύτηκε στην βάση με το test
+    //delete the product manager from the database
     public void deleteProductManager(String a)
     {
         int result=0;
@@ -69,25 +69,25 @@ public class LoginConTest
         session.getTransaction().commit();
         session.close();
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass() 
     {
-        //δημιουργία αντικειμένων για την κλήση μεθόδων
+        //instances for their methods
         logincon = new LoginCon();
         logincontest=new LoginConTest();
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    //after the call of the test methods
     @AfterClass
     public static void tearDownClass() 
     {
-        //διαγραφή υπαλλήλου ή προϊσταμένου από τη βάση που αποθηκεύτηκε κατά την διάρκεια των test
+        //delete the user from the database after the test
         if(inputR.isEmpty())
             logincontest.deleteEmployee("ilias@gmail.gr");
         else
             logincontest.deleteProductManager("ilias@gmail.gr");
     }
-    //επαλήθευση της εγγραφής χρήστη
+    //test the registration of a user
     @Test
     public void testRegistration() 
     {
@@ -102,7 +102,7 @@ public class LoginConTest
         boolean result = logincon.registration(name, surname, username, password, phone, email, inputR);
         assertTrue(result);
     }
-    //επαλήθευση ότι οι μεταβλητές String δεν είναι κενές κατά την εγγραφή του χρήστη
+    //test if the values are not null for registration
     @Test
     public void testNullMessageReg() 
     {
@@ -116,7 +116,7 @@ public class LoginConTest
         boolean result = logincon.nullMessageReg(name, surname, username, password, phone, email);
         assertFalse(result);
     }
-    //επαλήθευση ότι οι μεταβλητές String δεν είναι κενές κατά την σύνδεση του χρήστη
+    //test if the values are not null for login
     @Test
     public void testNullMessageLog() 
     {
@@ -126,7 +126,7 @@ public class LoginConTest
         boolean result = logincon.nullMessageLog(username, password);
         assertFalse(result);
     }
-    //επαλήθευση στοιχείων για την σύνδεση του υπαλλήλου στην εφαρμογή
+    //test the confirmation of the employee for the connection
     @Test
     public void testLoginControlEmp()
     {
@@ -137,7 +137,7 @@ public class LoginConTest
         Employee result = logincon.loginControlEmp(username, password);
         assertEquals(expResult, result.getSurname());
     }
-    //επαλήθευση στοιχείων για την σύνδεση του προϊσταμένου στην εφαρμογή
+    //test the confirmation of the product manager for the connection
     @Test
     public void testLoginControlPro() 
     {

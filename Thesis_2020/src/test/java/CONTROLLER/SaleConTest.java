@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 
 public class SaleConTest 
 {
-    //δημιουργία απαραίτητης αναφοράς αντικειμένου για την κλήση μεθόδων
+    //instance for its methods
     private static SaleCon salecon = new SaleCon();
     
     public SaleConTest() {
     }
-    //επαλήθευση αναζήτησης υπαλλήλου στην βάση
+    //test the search of an employee from the database
     @Test
     public void testConfirmEmp() {
         System.out.println("confirmEmp");
@@ -22,7 +22,7 @@ public class SaleConTest
         Employee result = salecon.confirmEmp(id);
         assertEquals(expResult, result.getName());
     }
-    //επαλήθευση ότι όλα οι String μεταβλητές δεν είναι κενές
+    //test if the values are not null
     @Test
     public void testNullMessageSale() {
         System.out.println("nullMessageSale");
@@ -35,7 +35,7 @@ public class SaleConTest
         boolean result = salecon.nullMessageSale(name, surname, email, address, product, model);
         assertFalse(result);
     }
-    //επαλήθευση αναζήτησης πίνακα στην βάση δεδομένων
+    //test the search of a table in the database
     @Test
     public void testGetTheTableSale() {
         System.out.println("getTheTableSale");
@@ -44,7 +44,7 @@ public class SaleConTest
         String result =salecon.getTheTableSale(a);
         assertEquals(expResult, result);
     }
-    //επαλήθευση μοντέλου που βρίσκεται στην πρώτη θέση της λίστας με τις τηλεοράσεις
+    //test the first element of the list of the television table
     @Test
     public void testGetListaSaleCon() {
         System.out.println("getListaSaleCon");
@@ -53,7 +53,7 @@ public class SaleConTest
         List<String> result = salecon.getListaSaleCon(table);
         assertEquals(expResult, result.get(0));
     }
-    //επαλήθευση αναζήτησης μοντέλου στην βάση
+    //test the confirmation of a model in the database
     @Test
     public void testGetChoosenModelSaleCon() {
         System.out.println("getChoosenModelSaleCon");

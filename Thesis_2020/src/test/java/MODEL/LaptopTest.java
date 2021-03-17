@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class LaptopTest
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static Laptop laptop;
     private static Laptop laptopSave;
     private static LaptopTest laptoptest;
@@ -19,7 +19,7 @@ public class LaptopTest
     public LaptopTest() {
     }
     
-    //για να διαγραφεί το αντικείμενο που αποθηκεύτηκε στην βάση με το test
+    //delete the laptop model from the database
     public void deleteLaptop(String a)
     {
         int result=0;
@@ -42,26 +42,22 @@ public class LaptopTest
         session.getTransaction().commit();
         session.close();
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass()
     {
-        //δημιουργία αντικειμένων για την κλήση μεθόδων
         laptop = new Laptop();
         laptoptest=new LaptopTest();
-        //δημιουργία αντικειμένου που θα αποθηκευτεί
         laptopSave=new Laptop("DB67ER",15.6, 8, 1.4, 500, "I5", "UBUNTU", 565.0, "ASUS", 2020,6);
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    //after the call of the test methods 
     @AfterClass
     public static void tearDownClass() 
     {
-        //διαγραφή του αντικειμένου που αποθηκεύτηκε κατά την διάρκεια των test 
         laptoptest.deleteLaptop("DB67ER");
-        //αρχικοποίηση μεταβλητής
         laptopSave=null;
     }
-    //επαλήθευση αποθήκευσης αντικειμένου στη βάση
+    //test the save of the model in the database
     @Test
     public void testSaveData() 
     {
@@ -69,14 +65,14 @@ public class LaptopTest
         boolean result = laptopSave.saveData();
         assertTrue(result);
     }
-    //επαλήθευση του μοντέλου που βρίσκεται πρώτο στη λίστα των Laptop
+    //test if the model is the first in the laptop list
     @Test
     public void testGetModelListLap() {
         System.out.println("getModelListLap");
         ArrayList<Laptop> result = laptop.getModelListLap();
         assertEquals("ACCOLDBOOK 1116", result.get(0).getSerialNumber());
     }
-    //επαλήθευση αφαίρεσης τεμαχίων συγκεκριμένου μοντέλου
+    //test the substraction of items of a model in the database
     @Test
     public void testUpdateData() {
         System.out.println("updateData");
@@ -85,7 +81,7 @@ public class LaptopTest
         boolean result = laptop.updateData(a, b);
         assertTrue(result);
     }
-    //επαλήθευση προσθήκης τεμαχίων συγκεκριμένου μοντέλου
+    //test the addition of items of a model in the database
     @Test
     public void testUpdateAddData() {
         System.out.println("updateAddData");

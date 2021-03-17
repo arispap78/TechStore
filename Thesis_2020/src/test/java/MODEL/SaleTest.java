@@ -15,17 +15,17 @@ import static org.junit.Assert.*;
 
 public class SaleTest 
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static Sale sale;
     private static Sale salesave;
     private static SaleTest saletest=new SaleTest();
-    //δημιουργία των απαραίτητων αντικειμένων υπαλλήλου και πελάτη 
+    //instances of an employee and a customer for the tests
     private static Employee user=Employee.loginEmp( "ARIS", "1234");
     private static Customer customer=Customer.getCustomer("FANIS@GMAIL.COM");
-    //δημιουργία λίστας ProductString που έχει μια πώληση
+    //the list of the products of a sale
     private static ArrayList<ProductString> productListest = new ArrayList<>();
     
-    //για να διαγραφεί η πώληση που αποθηκεύτηκε στην βάση με το test
+    //delete a sale from the database
     public void deleteSale(String a)
     {
         int result=0;
@@ -52,35 +52,33 @@ public class SaleTest
     
     public SaleTest() {
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων 
+    
+    //before the call of the test methods 
     @BeforeClass
     public static void setUpClass() 
     {
-        //δημιουργία μιας πώλησης για την κλήση μεθόδων
         sale=new Sale();
-        //δημιουργία πώλησης που θα αποθηκευτεί
         salesave=new Sale(1400.0, user, customer,8,productListest);       
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    
+    //after the call of the test methods 
     @AfterClass
     public static void tearDownClass() 
-    {
-        //διαγραφή του αντικειμένου που αποθηκεύτηκε κατά την διάρκεια των test 
+    { 
         saletest.deleteSale("2/5/2020");
-        //αρχικοποίηση μεταβλητών
         user=null;
         customer=null;
         salesave=null;
     }
 
-    //επαλήθευση αποθήκευσης μιας πώλησης
+    //test the save of a sale
     @Test
     public void testSaveSal() {
         System.out.println("saveSal");
         boolean result = salesave.saveSal();
         assertTrue(result);
     }
-    //επαλήθευση του μοντέλου που αναζητήθηκε
+    //confirmation of the model in the database
     @Test
     public void testGetChoosenModelSale2() {
         System.out.println("getChoosenModelSale2");
@@ -90,7 +88,7 @@ public class SaleTest
         Product result = Sale.getChoosenModelSale2(a, b);
         assertEquals(expResult, result.getSerialNumber());
     }
-    //επαλήθευση αποτελέσματος του τρίτου μοντέλου της λίστας
+    //test the third model of the sale list
     @Test
     public void testGetListaSale() {
         System.out.println("getListaSale");
@@ -99,7 +97,7 @@ public class SaleTest
         List<String> result = sale.getListaSale(table);
         assertEquals(expResult, result.get(2));
     }
-    //επαλήθευση αποτελέσματος του συνολικού ποσού της πρώτης πώλησης 
+    //confirmation of the result of the total pice of the first sale 
     @Test
     public void testSearchSaleList() throws ParseException {
         System.out.println("searchSaleList");
@@ -110,7 +108,7 @@ public class SaleTest
         result=sale.searchSaleList(a, b);
         assertEquals(expResult, result.get(0).getTotalPrice(),0.1);
     }
-    //επαλήθευση αποτελέσματος της μεγαλύτερης τιμής συνολικού ποσού της δεύτερης πώλησης της λίστας
+    //test the highest total price of the second sale of the sale list
     @Test
     public void testStatisticSale() throws ParseException {
         System.out.println("statisticSale");
@@ -120,7 +118,7 @@ public class SaleTest
         ArrayList <Object[]> result =sale.statisticSale(a, b);
         assertEquals(expResult, result.get(1)[3].toString());
     }
-    //επαλήθευση αποτελέσματος της μεγαλύτερης τιμής συνολικού ποσού δεύτερης πώλησης της λίστας από έναν υπάλληλο
+    //test the highest total price of the second sale of the sale list from a specific employee
     @Test
     public void testStatisticSaleEmp() throws ParseException {
         System.out.println("statisticSaleEmp");
@@ -131,7 +129,7 @@ public class SaleTest
         ArrayList <Object[]> result =sale.statisticSaleEmp(a, b,c);
         assertEquals(expResult, result.get(1)[3].toString());
     }
-    //επαλήθευση του συνολικού ποσού της πώλησης μιας συγκεκριμένης ημερομηνίας
+    //test of the total price of a sale of a specific date
     @Test
     public void testSearchSale() {
         System.out.println("searchSale");

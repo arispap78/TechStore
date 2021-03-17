@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class EmployeeTest 
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static Employee employee;
     private static Employee papanastasiou;
     private static EmployeeTest employeetest;
@@ -19,7 +19,7 @@ public class EmployeeTest
     public EmployeeTest() {
     }
 
-    //για να διαγραφεί ο υπάλληλος που αποθηκεύτηκε στην βάση με το test
+    //delete the employee from the database
     public void deleteEmployee(String a)
     {
         int result=0;
@@ -43,53 +43,49 @@ public class EmployeeTest
         session.getTransaction().commit();
         session.close();
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass() 
     {
         employeetest=new EmployeeTest();
-        //δημιουργία υπαλλήλου που θα καλεί τις μεθόδους
         employee=new Employee();
-        //δημιουργία υπαλλήλου που θα αποθηκευτεί 
         papanastasiou=new Employee("NEKTARIOS","PAPANASTASIOU","ARI","123","694769986","PAPANASTASIOUARIS@GMAIL.gr");
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    //after the call of the test methods 
     @AfterClass
     public static void tearDownClass()
     {
-        //διαγραφή του υπαλλήλου που αποθηκέυτηκε στη βάση κατά την διάρκεια των test
         employeetest.deleteEmployee("ARI");
-        //αρχικοποίηση μεταβλητής
         papanastasiou=null;
     }
-    //επαλήθευση ότι ο υπάλληλος δεν είναι προϊστάμενος
+    //confirmation that the user is not product manager
     @Test
     public void testIsIsProistamenos() {
         System.out.println("isIsProistamenos");
         assertFalse(papanastasiou.isIsProistamenos());
     }
-    //επαλήθευση αποθήκευσης υπαλλήλου
+    //the the save of the user
     @Test
     public void testSaveUser() 
     {
         System.out.println("saveUser");
         assertTrue(papanastasiou.saveUser());
     }
-    //επαλήθευση της έγκρισης εισόδου ενός χρήστη στην εφαρμογή
+    //test the confirmation of the login of a user
     @Test
     public void testLoginEmp() {
         System.out.println("loginEmp");
         Employee papanas=employee.loginEmp("ARIS", "1234");
         assertEquals("PAPANASTASIOU",papanas.surname);
     }
-    //επαλήθευση αναζήτησης ενός υπαλλήλου από την βάση
+    //test the search of an employee in the database
     @Test
     public void testSearchEmp() {
         System.out.println("searchEmp");
         Employee papanas=employee.searchEmp(1234);
         assertEquals("PAPANASTASIOU",papanas.surname);
     }
-    //επαλήθευση του υπαλλήλου που βρίσκεται πρώτος στη λίστα των υπαλλήλων
+    //test that the employee is in the first place of the employee s list
     @Test
     public void testListaEmployee() {
         System.out.println("listaEmployee");

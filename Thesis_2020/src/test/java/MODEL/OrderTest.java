@@ -15,15 +15,15 @@ public class OrderTest
     
     public OrderTest() {
     }
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static Order order;
     private static Order ordersave;
     private static OrderTest ordertest;   
     private static ProductManager user=ProductManager.loginPro( "GEORGE", "4567");
-    //δημιουργία λίστας OrderString που έχει μια παραγγελία
+    //the product list of an order
     private static ArrayList<OrderString> orderListest = new ArrayList<>();
     
-    //για να διαγραφεί η παραγγελία που αποθηκεύτηκε στην βάση με το test
+    //delete an order from the database
     public void deleteOrder(String a)
     {
         int result=0;
@@ -47,27 +47,23 @@ public class OrderTest
         session.getTransaction().commit();
         session.close();
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass() 
     {
         ordertest=new OrderTest(); 
-        //δημιουργία παραγγελίας για την κλήση μεθόδων
         order=new Order();
-        //δημιουργία παραγγελίας που θα αποθηκευτεί
         ordersave=new Order(user, orderListest);
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    //after the call of the test methods 
     @AfterClass
     public static void tearDownClass()
     {
-        //διαγραφή του αντικειμένου που αποθηκεύτηκε κατά την διάρκεια των test
         ordertest.deleteOrder("2/5/2020");
-        //αρχικοποίηση μεταβλητών
         user=null;
         ordersave=null;
     }
-    //επαλήθευση αποθήκευσης μιας παραγγελίας
+    //test the save of an order
     @Test
     public void testSaveOrd() 
     {
@@ -75,7 +71,7 @@ public class OrderTest
         boolean result = ordersave.saveOrd();
         assertTrue(result);
     }
-    //επαλήθευση μοντέλου που θα εμφανίζεται πρώτο στη λίστα
+    //test the first product of the list from an order
     @Test
     public void testGetListaOrder() 
     {
@@ -85,7 +81,7 @@ public class OrderTest
         List<String> result = order.getListaOrder(table);
         assertEquals(expResult, result.get(0));
     }
-    //επαλήθευση αναζήτησης παραγγελίας μιας συγκεκριμένης ημερομηνίας
+    //test the search of an order in a specific date
     @Test
     public void testSearchOrd() {
         System.out.println("searchOrd");

@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 
 public class StatisticConTest 
 {
-    //αντικείμενο που θα χρειαστεί για την κλήση μεθόδων
+    //instance for its methods
     StatisticCon statisticon = new StatisticCon();
     
     public StatisticConTest() {
     }
     
-    //επαλήθευση αποτελέσματος της μεγαλύτερης τιμής συνολικού ποσού της δεύτερης πώλησης της λίστας
+    //test the confirmation of the highest total price of the second element of the sale
     @Test
     public void testStatisticControl() throws ParseException {
         System.out.println("statisticControlEmp");
@@ -25,7 +25,7 @@ public class StatisticConTest
         ArrayList <Object[]> result = statisticon.statisticControl(a, b);
         assertEquals(expResult, result.get(1)[3].toString());
     }
-    //επαλήθευση αποτελέσματος της μεγαλύτερης τιμής συνολικού ποσού της πρώτης πώλησης της λίστας από έναν υπάλληλο
+    //test the confirmation of the highest total price of the first element of the sale from an employee
     @Test
     public void testStatisticControlEmp() throws ParseException {
         System.out.println("statisticControlEmp");
@@ -36,7 +36,7 @@ public class StatisticConTest
         ArrayList <Object[]> result = statisticon.statisticControlEmp(a, b, c);
         assertEquals(expResult, result.get(0)[3].toString());
     }
-    //αν ο τρίτος κατά σειρά υπάλληλος της λίστας έχει το σωστό όνομα
+    //test the confirmation of the third element of the list of the employees has the right name
     @Test
     public void testListaEmployeeStatistics() {
         System.out.println("listaEmployeeStatistics");

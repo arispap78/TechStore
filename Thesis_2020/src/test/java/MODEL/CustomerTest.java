@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class CustomerTest 
 {
-    //δημιουργία των απαραίτητων αναφορών αντικειμένων
+    //instances for their methods
     private static Customer customer;
     private static Customer giannis;
     private static CustomerTest customertest;
@@ -19,7 +19,7 @@ public class CustomerTest
     public CustomerTest() {
     }
     
-    //για να διαγραφεί ο πελάτης που αποθηκεύτηκε στην βάση με το test
+    //delete the customer from the database
     public void deleteCustomer(String a)
     {
         int result=0;
@@ -42,26 +42,23 @@ public class CustomerTest
         session.getTransaction().commit();
         session.close();
     }
-    //θα γίνουν πριν τις κλήσεις των test μεθόδων
+    //before the call of the test methods
     @BeforeClass
     public static void setUpClass() 
     {
         customertest=new CustomerTest();
-        //δημιουργία πελάτη για την κλήση μεθόδων
         customer = new Customer();
-        //δημιουργία πελάτη για την αποθήκευση στην βάση
         giannis=new Customer("GIANNIS", "BARIAMIDIS", "GIANNIS@HOTMAIL.COM", "THOUKIDIDI 34");
     }
-    //θα γίνουν μετά τις κλήσεις των test μεθόδων 
+    //after the call of the test methods
     @AfterClass
     public static void tearDownClass() 
     {
-        //διαγραφή του πελάτη που αποθηκεύτηκε κατά την διάρκεια των test 
+        //delete the customer in the database after the test 
         customertest.deleteCustomer("GIANNIS@HOTMAIL.COM");
-        //αρχικοποίηση μεταβλητής
         giannis=null;
     }
-    //επαλήθευση αποθήκευσης πελάτη στην βάση
+    //test the save of the customer in the database
     @Test
     public void testSaveCus() 
     {
@@ -69,7 +66,7 @@ public class CustomerTest
         boolean result = giannis.saveCus();
         assertTrue(result);
     }
-    //επαλήθευση πελάτη που βρίσκεται στην δεύτερη θέση της λίστας πελατών
+    //confirmation of the customer who is the second place in the customer list
     @Test
     public void testGetListaCustomer() 
     {
@@ -78,7 +75,7 @@ public class CustomerTest
         ArrayList<String> result = customer.getListaCustomer();
         assertEquals(expResult, result.get(1));
     }
-    //επαλήθευση πελάτη που βρίσκεται στην βάση
+    //test the search of the customer in the database
     @Test
     public void testGetCustomer() {
         System.out.println("getCustomer");

@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 
 public class ShowProductConTest 
 {
-     //αντικείμενο που θα χρειαστεί για την κλήση μεθόδων
+     //instance for its methods
     ShowProductCon showproductcon = new ShowProductCon();
  
     public ShowProductConTest() {
     }
-    //επαλήθευση μοντέλου που βρίσκεται στην δεύτερη θέση της λίστας με τις φωτογραφικές
+    //test the second element of the list of the camera table
     @Test
     public void testGetListaCam() {
         System.out.println("getListaCam");
@@ -22,7 +22,7 @@ public class ShowProductConTest
         ArrayList<String> result = showproductcon.getListaCam(table);
         assertEquals(expResult, result.get(1));
     }
-    //επαλήθευση ότι επιστρέφει το όνομα του αντίστοιχου πίνακα
+    //test the search for the table in the database
     @Test
     public void testGetTheTable() {
         System.out.println("getTheTable");
@@ -31,7 +31,7 @@ public class ShowProductConTest
         String result = showproductcon.getTheTable(a);
         assertEquals(expResult, result);
     }
-    //επαλήθευση του μοντέλου φωτογραφικής μηχανής που υπαρχει στη βάση δεδομένων 
+    //test the search of the model camera in the database 
     @Test
     public void testGetChoosenModelCam() {
         System.out.println("getChoosenModelCam");
@@ -41,7 +41,7 @@ public class ShowProductConTest
         Product result = showproductcon.getChoosenModelCam(a, b);
         assertEquals(expResult, result.getSerialNumber());
     }
-    //επαλήθευση του μοντέλου που βρίσκεται στην πρώτη θέση με τα προτεινόμενα μοντέλα
+    //test the first element of the suggestion list of a camera model 
     @Test
     public void testGetSuggestionsCam() {
         System.out.println("getSuggestionsCam");
